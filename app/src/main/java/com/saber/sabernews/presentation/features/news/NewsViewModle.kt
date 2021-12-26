@@ -20,8 +20,8 @@ import javax.inject.Inject
 
 const val PAGE_SIZE = 20
 
-const val STATE_KEY_RESERVATIONS_PAGE = "news.state.page.key"
-const val STATE_KEY_RESERVATIONS_LIST_POSITION = "news.state.query.list_position"
+const val STATE_KEY_NEWS_PAGE = "news.state.page.key"
+const val STATE_KEY_NEWS_LIST_POSITION = "news.state.query.list_position"
 
 @HiltViewModel
 class NewsViewModle @Inject constructor(
@@ -43,12 +43,12 @@ class NewsViewModle @Inject constructor(
 
     private fun setNewsScrollPosition(position: Int) {
         newsListScrollPosition = position
-        savedStateHandle.set(STATE_KEY_RESERVATIONS_LIST_POSITION, position)
+        savedStateHandle.set(STATE_KEY_NEWS_LIST_POSITION, position)
     }
 
     init {
-        savedStateHandle.get<Int>(STATE_KEY_RESERVATIONS_PAGE)?.let { p -> setNewsPage(p) }
-        savedStateHandle.get<Int>(STATE_KEY_RESERVATIONS_LIST_POSITION)
+        savedStateHandle.get<Int>(STATE_KEY_NEWS_PAGE)?.let { p -> setNewsPage(p) }
+        savedStateHandle.get<Int>(STATE_KEY_NEWS_LIST_POSITION)
             ?.let { p -> setNewsScrollPosition(p) }
         // get news
         if (newsListScrollPosition != 0) onTriggerNewsEvent(NewsListEvent.RestoreStateEvent)
@@ -73,7 +73,7 @@ class NewsViewModle @Inject constructor(
 
     private fun setNewsPage(page: Int) {
         this.pageNews.value = page
-        savedStateHandle.set(STATE_KEY_RESERVATIONS_PAGE, page)
+        savedStateHandle.set(STATE_KEY_NEWS_PAGE, page)
     }
 
     private suspend fun newNewsSearch(search: String) {
